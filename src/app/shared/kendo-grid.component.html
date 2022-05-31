@@ -1,0 +1,27 @@
+<kendo-grid [data]="gridData" [sortable]="true">
+    <kendo-grid-column field="stocksName" title="Stock Name"> </kendo-grid-column>
+    <kendo-grid-column field="quantity" title="Quantity"> </kendo-grid-column>
+    <kendo-grid-column field="purchaseDate" title="Purchase Date"> </kendo-grid-column>
+    <kendo-grid-column field="purchasePrice" title="Purchase Price">
+        <ng-template kendoGridCellTemplate let-dataItem let-isNew="isNew">
+            <span>{{dataItem.purchasePrice | currency:"INR"}}</span>
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="currentMarketRate" title="Current Market Price">
+        <ng-template kendoGridCellTemplate let-dataItem let-isNew="isNew">
+            <span>{{dataItem.currentMarketRate | currency:"INR"}}</span>
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column title="Current Value" > 
+        <ng-template kendoGridCellTemplate let-dataItem let-isNew="isNew" >
+            <span>{{dataItem.currentMarketRate*dataItem.quantity | currency:"INR"}}</span>
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column title="Percentage Profit/Loss">
+        <ng-template kendoGridCellTemplate let-dataItem let-isNew="isNew">
+            <span [ngStyle]="{'color': (dataItem.currentMarketRate - dataItem.purchasePrice < 0) ? 'red': 'green'}">
+                {{getPercenatge(dataItem.currentMarketRate, dataItem.purchasePrice)| number : '1.2-2'}}%
+            </span>
+        </ng-template>
+    </kendo-grid-column>
+</kendo-grid>
