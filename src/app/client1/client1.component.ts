@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { IStocks } from '../Models/IStocks';
-import { StockService } from '../shared/stock.service';
 
 @Component({
   selector: 'app-client1',
@@ -9,10 +7,9 @@ import { StockService } from '../shared/stock.service';
 })
 export class Client1Component implements OnInit {
 
-  constructor(private _service: StockService) { }
-  public client1Data!: IStocks[];
+  constructor() { }
   ngOnInit(): void {
-    this._service.getStockDetails(1).subscribe(res => { this.client1Data = res });
+    
   }
 
 }

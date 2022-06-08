@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IStocks } from '../Models/IStocks';
+import { StockService } from './stock.service';
 
 @Component({
   selector: 'app-kendo-grid',
@@ -8,12 +9,12 @@ import { IStocks } from '../Models/IStocks';
   styleUrls: ['./kendo-grid.component.css']
 })
 export class KendoGridComponent implements OnInit {
-  @Input() gridData!: IStocks[];
- // public stockData!: Observable<IStocks[]>;
-  constructor() { }
-
-  ngOnInit(): void {
-    
+  @Input() clientId! : number;
+  gridData!: IStocks[];
+  constructor(private _service: StockService) { }
+  
+    ngOnInit(): void {
+      this._service.getStockDetails(this.clientId).subscribe(res => { this.gridData = res });
   }
 
   getPercenatge(sp: number, cp: number) {
